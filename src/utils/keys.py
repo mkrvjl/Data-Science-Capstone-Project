@@ -1,0 +1,1 @@
+INDETERMINE_KEY = "Indéterminé"
