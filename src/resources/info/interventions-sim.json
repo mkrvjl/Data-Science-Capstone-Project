@@ -1,1 +1,15 @@
-{"name": "Interventions des pompiers de Montréal", "url": "https://donnees.montreal.ca/ville-de-montreal/interventions-service-securite-incendie-montreal", "directory": "src/resources/interventions_sim/", "local": {"shp": "src/resources/data/interventions_sim/interventions-sim.shp", "geojson": null, "csv": "src/resources/data/interventions_sim/donneesouvertes-interventions-sim.csv"}, "remote": {"shp": null, "geojson": "https://data.montreal.ca/dataset/2fc8a2b9-1556-410e-a118-c46e97e9f19e/resource/c42ff083-3002-4abe-aee3-951d17586dac/download/interventions-sim.json", "csv": null}}
+{
+    "name":"Interventions des pompiers de Montréal",
+    "url":"https://donnees.montreal.ca/ville-de-montreal/interventions-service-securite-incendie-montreal",
+    "directory":"src/resources/interventions_sim/",
+    "local":{
+        "shp":"src/resources/data/interventions_sim/interventions-sim.shp",
+        "geojson":null,
+        "csv":"src/resources/data/interventions_sim/donneesouvertes-interventions-sim.csv"
+    },
+    "remote":{
+        "shp":null,
+        "geojson":"https://data.montreal.ca/dataset/2fc8a2b9-1556-410e-a118-c46e97e9f19e/resource/c42ff083-3002-4abe-aee3-951d17586dac/download/interventions-sim.json",
+        "csv":null
+    }
+}
