@@ -1,6 +1,8 @@
 import json
+import os
 
 from config.dataframe_files import DataFrameFiles
+from utils.download import get_missing_files
 
 
 class DataFrameInfo:
@@ -9,18 +11,23 @@ class DataFrameInfo:
             name: str,
             url: str,
             directory: str,
+            description: str = None,
             local_files: DataFrameFiles = None,
             remote_files: DataFrameFiles = None,
     ):
         self.name = name
+        self.description = description
         self.url = url
         self.directory = directory
         self.local = local_files
         self.remote = remote_files
 
+        self.validate()
+
     def __iter__(self):
         yield from {
-            "label": self.name,
+            "name": self.name,
+            "description": self.description,
             "url": self.url,
             "directory": self.directory,
             "local": self.local,
@@ -39,6 +46,7 @@ class DataFrameInfo:
     def to_dict(self) -> dict:
         dictionary = {
             "name": self.name,
+            "description": self.description,
             "url": self.url,
             "directory": self.directory,
             "local": self.local.to_dict(),
@@ -50,10 +58,13 @@ class DataFrameInfo:
     @classmethod
     def from_dict(cls, dictionary: dict):
 
-        name, url, directory, local_files, remote_files = None, None, None, None, None
+        name, url, directory, description = None, None, None, None
+        local_files, remote_files = None, None
 
         if "name" in dictionary:
             name = dictionary["name"]
+        if "description" in dictionary:
+            description = dictionary["description"]
         if "url" in dictionary:
             url = dictionary["url"]
         if "directory" in dictionary:
@@ -65,6 +76,7 @@ class DataFrameInfo:
 
         df_source_info = DataFrameInfo(
             name=name,
+            description=description,
             url=url,
             directory=directory,
             local_files=local_files,
@@ -72,3 +84,31 @@ class DataFrameInfo:
         )
 
         return df_source_info
+
+    def validate(self) -> bool:
+        """Validates whether all elements of current instance are defined correctly.
+
+        Returns:
+            bool: True if valid object, False otherwise
+        """
+        valid = True
+
+        if self.local.shp and not os.path.exists(self.local.shp):
+            get_missing_files(
+                url=self.remote.shp,
+                filepath=self.local.shp
+            )
+
+        if self.local.geojson and not os.path.exists(self.local.geojson):
+            get_missing_files(
+                url=self.remote.geojson,
+                filepath=self.local.geojson
+            )
+
+        if self.local.csv and not os.path.exists(self.local.csv):
+            get_missing_files(
+                url=self.remote.csv,
+                filepath=self.local.csv
+            )
+
+        return valid

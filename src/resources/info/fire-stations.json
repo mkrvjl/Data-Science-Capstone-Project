@@ -1,10 +1,11 @@
 {
-    "name":"Casernes de pompiers sur l’île de Montréal",
+    "name":"casernes",
+    "descriptions":"Casernes de pompiers sur l’île de Montréal",
     "url":"https://donnees.montreal.ca/ville-de-montreal/casernes-pompiers",
-    "directory":"src/resources/data/",
+    "directory":"src/resources/data/fire_stations/",
     "local":{
-        "shp":"src/resources/data/fire_stations/results.shp",
-        "geojson":null,
+        "shp":"src/resources/data/fire_stations/casernes.zip",
+        "geojson":"src/resources/data/fire_stations/casernes.geojson",
         "csv":"src/resources/data/fire_stations/casernes.csv"
     },
     "remote":{
