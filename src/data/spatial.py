@@ -85,6 +85,8 @@ def create_grid(
         grid = grid.sjoin(geo_data, how="inner", rsuffix="right")
         grid = grid[cols_names]
 
+    grid['grid_id'] = grid.index.tolist()
+
     grid["Grid Name"] = (
         "(" + grid["grid_row_id"].astype(str) + "," + grid["grid_col_id"].astype(str) + ")"
     )
