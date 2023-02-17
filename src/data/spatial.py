@@ -13,7 +13,7 @@ def create_grid(
     geo_data: gpd,
     distance: float,
     units: Unit = None,
-    remove_unused: bool = False,
+    remove_unused_grids: bool = False,
     save_as_file: bool = False,
 ) -> gpd:
     # Get the extent of the shapefile
@@ -80,7 +80,7 @@ def create_grid(
         fig.savefig(f"out/pdf/mtl_grid_{str(distance)}_{str(units.value)}.pdf")
         grid.to_file(f"out/data/grid/mtl_grid_{str(distance)}_{str(units.value)}.shp")
 
-    if remove_unused:
+    if remove_unused_grids:
         cols_names = grid.columns.values
         grid = grid.sjoin(geo_data, how="inner", rsuffix="right")
         grid = grid[cols_names]
@@ -123,24 +123,17 @@ def gridding_test():
     print("test")
 
 
-def clean_unite_evaluation_fonciere():
-    # evaluation = gpd.read_file("src/data/unit_eval_fonciere/uniteevaluationfonciere.geojson", rows=5)
-    evaluation = gpd.read_file("src/data/unit_eval_fonciere/uniteevaluationfonciere.geojson")
-    data_proj = evaluation.to_crs(epsg=3035)
-    data_proj["centroid"] = data_proj["geometry"].centroid
-    evaluation["geometry"] = data_proj["centroid"].to_crs(epsg=4326)
+def get_grid(distance: int, units: Unit) -> gpd:
 
-    evaluation = evaluation.drop(
-        columns=[
-            "ID_UEV",
-            "CIVIQUE_DEBUT",
-            "CIVIQUE_FIN",
-            "NOM_RUE",
-            "MUNICIPALITE",
-            "MATRICULE83",
-            "NO_ARROND_ILE_CUM",
-        ]
+    # universe
+    lim_admin_mtl = gpd.read_file(settings.lim_admin_mtl.local.shp)
+
+    # create grid
+    grid = create_grid(
+        geo_data=lim_admin_mtl,
+        distance=distance,
+        units=units,
     )
-    evaluation.to_file(
-        "src/data/unit_eval_fonciere/clean_uniteevaluationfonciere.geojson", driver="GeoJSON"
-    )
+
+    return grid
+

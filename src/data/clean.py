@@ -1,4 +1,5 @@
 import geopandas as gpd
+import pandas as pd
 from haversine import Unit
 from config.settings import ProjectSettings
 from data.fetch import fire_incidents_data, crime_data
@@ -75,11 +76,15 @@ def clean_fire_incidents(
     if aggregate_data:
         #grouped_multiple = fires_with_grid.groupby(['Grid Name', 'YEAR', 'MONTH', 'DAY', 'QUART', 'DESCRIPTION_GROUPE', 'CASERNE', 'NOMBRE_UNITES'])['INCIDENT_NBR'].count().reset_index()
         grouped_multiple = fires_with_grid.groupby(
-            ['index_grid', 'Grid Name', 'YEAR', 'MONTH', 'DAY', 'QUART', 'DESCRIPTION_GROUPE'])[
+            ['index_grid', 'Grid Name', 'DATE', 'QUART', 'DESCRIPTION_GROUPE'])[
             #['index_grid', 'Grid Name', 'YEAR', 'MONTH', 'QUART', 'DESCRIPTION_GROUPE'])[
             'INCIDENT_NBR'].count().reset_index()
 
+    one_hot = pd.get_dummies(grouped_multiple['DESCRIPTION_GROUPE'])
+    one_hot = one_hot.multiply(grouped_multiple['INCIDENT_NBR'], axis="index")
+    grouped_multiple = grouped_multiple.join(one_hot)
     grouped_multiple = grouped_multiple.sort_values(by='INCIDENT_NBR', ascending=False).reset_index(drop=True)
+    grouped_multiple = grouped_multiple.drop(['DESCRIPTION_GROUPE', 'INCIDENT_NBR'], axis=1)
     grouped_multiple.to_csv(f"{settings.out_dir}/data/fire-insidents-clean.csv")
 
     #grouped_multiple.head(10)
@@ -135,3 +140,26 @@ def clean_crime_dataset(
 
     # crimes_with_grid['DATE'] = crimes_with_grid['DATE'].astype(str)
     # crimes_with_grid.to_file(f"src/data/crime/crime_mtl_grid_{grid_distance}{grid_units.value}.shp")
+
+
+def clean_unite_evaluation_fonciere():
+    # evaluation = gpd.read_file("src/data/unit_eval_fonciere/uniteevaluationfonciere.geojson", rows=5)
+    evaluation = gpd.read_file("src/data/unit_eval_fonciere/uniteevaluationfonciere.geojson")
+    data_proj = evaluation.to_crs(epsg=3035)
+    data_proj["centroid"] = data_proj["geometry"].centroid
+    evaluation["geometry"] = data_proj["centroid"].to_crs(epsg=4326)
+
+    evaluation = evaluation.drop(
+        columns=[
+            "ID_UEV",
+            "CIVIQUE_DEBUT",
+            "CIVIQUE_FIN",
+            "NOM_RUE",
+            "MUNICIPALITE",
+            "MATRICULE83",
+            "NO_ARROND_ILE_CUM",
+        ]
+    )
+    evaluation.to_file(
+        "src/data/unit_eval_fonciere/clean_uniteevaluationfonciere.geojson", driver="GeoJSON"
+    )

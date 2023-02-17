@@ -48,6 +48,7 @@ def fire_incidents_data(
 
     if add_time_categories:
         # add date categories
+        mtl_fire_inc["DATE"] = mtl_fire_inc["CREATION_DATE_TIME"].dt.date
         mtl_fire_inc["YEAR"] = mtl_fire_inc["CREATION_DATE_TIME"].dt.year
         mtl_fire_inc["MONTH"] = mtl_fire_inc["CREATION_DATE_TIME"].dt.month
         mtl_fire_inc["DAY"] = mtl_fire_inc["CREATION_DATE_TIME"].dt.day
