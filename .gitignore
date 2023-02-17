@@ -27,7 +27,7 @@ MANIFEST
 venv/
 out/
 geckodriver.log
-src/resources/data
+resources/data
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
