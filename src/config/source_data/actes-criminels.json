@@ -2,11 +2,11 @@
     "name":"actes-criminels",
     "description": "Liste des actes criminels enregistrés par le Service de police de la Ville de Montréal (SPVM).",
     "url":"https://donnees.montreal.ca/ville-de-montreal/actes-criminels",
-    "directory":"src/resources/data/crime/",
+    "directory":"resources/data/crime/",
     "local":{
-        "shp":"src/resources/data/crime/actes-criminels.zip",
-        "geojson":"src/resources/data/crime/actes-criminels.geojson",
-        "csv":"src/resources/data/crime/actes-criminels.csv"
+        "shp":"resources/data/crime/actes-criminels.zip",
+        "geojson":"resources/data/crime/actes-criminels.geojson",
+        "csv":"resources/data/crime/actes-criminels.csv"
     },
     "remote":{
         "shp":"https://data.montreal.ca/dataset/5829b5b0-ea6f-476f-be94-bc2b8797769a/resource/1171793b-3c41-4dd5-ab99-7bd294c0c9f0/download/actes-criminels.zip",

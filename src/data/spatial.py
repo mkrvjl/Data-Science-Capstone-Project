@@ -1,7 +1,10 @@
+from statistics import mean
 from typing import Optional
-
+import utils.constants as coord
+from utils.columns import LONG_COL, LAT_COL
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import folium
 from shapely import geometry
 from haversine import inverse_haversine, Unit
 from config.settings import ProjectSettings
@@ -137,3 +140,63 @@ def get_grid(distance: int, units: Unit) -> gpd:
 
     return grid
 
+
+def visualize_grid(
+        distance: int,
+        units: Unit,
+        out_dir: str = "resources/docs/grid/"
+) -> None:
+
+    # universe
+    lim_admin_mtl = gpd.read_file(settings.lim_admin_mtl.local.shp)
+
+    # create grid
+    grid = create_grid(
+        geo_data=lim_admin_mtl,
+        distance=distance,
+        units=units,
+    )
+
+    # create a new map
+    min_x, min_y, max_x, max_y = lim_admin_mtl.total_bounds
+
+    x_map = mean([max_x, min_x])
+    y_map = mean([max_y, min_y])
+
+    mtl_grid = folium.Map(
+        location=[y_map, x_map],
+        zoom_start=12,
+        tiles="OpenStreetMap",
+    )
+
+    # visualize
+    style_function = lambda x: {
+        "fillColor": "#ffffff",
+        "color": "#000000",
+        "fillOpacity": 0.0,
+        "weight": 0.3,
+    }
+    highlight_function = lambda x: {
+        "fillColor": "#000000",
+        "color": "#000000",
+        "fillOpacity": 0.50,
+        "weight": 0.1,
+    }
+
+    geo_tooltip = folium.features.GeoJson(
+        grid,
+        style_function=style_function,
+        control=False,
+        highlight_function=highlight_function,
+        tooltip=folium.features.GeoJsonTooltip(
+            fields=["Grid Name", "grid_id"],
+            aliases=["Grid Name: ", "Grid ID: "],
+            style=(
+                "background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;"
+            ),
+        ),
+    )
+    mtl_grid.add_child(geo_tooltip)
+    mtl_grid.keep_in_front(geo_tooltip)
+
+    mtl_grid.save(f"{out_dir}/fire_incidents_grid.html")

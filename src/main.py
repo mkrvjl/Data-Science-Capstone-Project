@@ -5,7 +5,7 @@ from haversine import Unit
 from config.settings import ProjectSettings
 from data.clean import clean_fire_incidents
 from data.integrate import integrate_datasets
-from data.spatial import create_grid
+from data.spatial import create_grid, visualize_grid
 from data.visualize import create_choropleth_stations, create_fire_incidents_yearly
 import pandas as pd
 
@@ -21,7 +21,10 @@ if __name__ == "__main__":
     #     add_time_categories=True
     # )
 
-    integrate_datasets()
+    visualize_grid(
+        distance=500,
+        units=Unit.METERS
+    )
 
     print("Executed!!!")
 

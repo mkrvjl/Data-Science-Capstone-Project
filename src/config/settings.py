@@ -4,7 +4,7 @@ import time
 from config.dataframe_info import DataFrameInfo
 
 # directory where to find dataframe files
-root_dir = "src/resources/info"
+root_dir = "src/config/source_data"
 
 
 class ProjectSettings(object):

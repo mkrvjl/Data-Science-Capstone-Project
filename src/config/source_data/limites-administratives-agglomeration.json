@@ -2,10 +2,10 @@
     "name":"limites-administratives-agglomeration",
     "description":"Limites administratives de l'agglomération de Montréal (arrondissements et villes liées) - epsc:WGS84",
     "url":"https://donnees.montreal.ca/ville-de-montreal/limites-administratives-agglomeration",
-    "directory":"src/resources/data/lim_admin_mtl/",
+    "directory":"resources/data/lim_admin_mtl/",
     "local":{
-        "shp":"src/resources/data/lim_admin_mtl/limites-administratives-agglomeration.zip",
-        "geojson":"src/resources/data/lim_admin_mtl/limites-administratives-agglomeration.geojson",
+        "shp":"resources/data/lim_admin_mtl/limites-administratives-agglomeration.zip",
+        "geojson":"resources/data/lim_admin_mtl/limites-administratives-agglomeration.geojson",
         "csv":null
     },
     "remote":{
