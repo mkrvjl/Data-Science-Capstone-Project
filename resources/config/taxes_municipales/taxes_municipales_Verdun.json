@@ -1,0 +1,12 @@
+{
+    "name":"Imposition-annuelle-taxes-municipales",
+    "description": "Cet ensemble de données présente chaque ligne de taxes qui composent le compte de taxes annuel des contribuables à partir du système de taxation de la Ville de Montréal.",
+    "url":"https://donnees.montreal.ca/dataset/taxes-municipales",
+    "directory":"resources/data/raw/taxes-municipales/",
+    "working_db_format": "csv",
+    "remote":{
+        "shp":null,
+        "geojson":null,
+        "csv":"https://data.montreal.ca/dataset/0a912de3-9307-4b63-bf19-3a4594f87e1f/resource/cecf74d7-902e-42bc-93e8-4dfa687a8b64/download/taxes-municipales-verdun.csv"
+    }
+}

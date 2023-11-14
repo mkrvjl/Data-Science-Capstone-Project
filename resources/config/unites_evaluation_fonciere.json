@@ -1,0 +1,12 @@
+{
+    "name":"unites-evaluation-fonciere",
+    "description": "Données géospatiales du découpage des propriétés de l'agglomération de Montréal",
+    "url":"https://donnees.montreal.ca/dataset/unites-evaluation-fonciere",
+    "directory":"resources/data/raw/unites_eval_fonciere/",
+    "working_db_format": "shp",
+    "remote":{
+        "shp":"https://donnees.montreal.ca/dataset/4ad6baea-4d2c-460f-a8bf-5d000db498f7/resource/43c2cccf-a439-429b-a3c8-5d4ebce53e1b/download/uniteevaluationfonciere.zip",
+        "geojson":"https://donnees.montreal.ca/dataset/4ad6baea-4d2c-460f-a8bf-5d000db498f7/resource/866a3dbc-8b59-48ff-866d-f2f9d3bbee9d/download/uniteevaluationfonciere.geojson.zip",
+        "csv":"https://donnees.montreal.ca/dataset/4ad6baea-4d2c-460f-a8bf-5d000db498f7/resource/2b9dfc3d-91d3-48de-b32c-a2a6d9417079/download/uniteevaluationfonciere.csv"
+    }
+}
