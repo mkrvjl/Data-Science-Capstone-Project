@@ -1,0 +1,12 @@
+{
+    "name":"Imposition-annuelle-taxes-municipales",
+    "description": "Cet ensemble de données présente chaque ligne de taxes qui composent le compte de taxes annuel des contribuables à partir du système de taxation de la Ville de Montréal.",
+    "url":"https://donnees.montreal.ca/dataset/taxes-municipales",
+    "directory":"resources/data/raw/taxes-municipales/",
+    "working_db_format": "csv",
+    "remote":{
+        "shp":null,
+        "geojson":null,
+        "csv":"https://data.montreal.ca/dataset/0a912de3-9307-4b63-bf19-3a4594f87e1f/resource/9bfc305c-e930-4dfb-a345-6355bae4cadd/download/taxes-municipales-villeray-saint-michel-parc-extension.csv"
+    }
+}

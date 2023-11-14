@@ -1,0 +1,14 @@
+{
+    "name": "interventions_sim",
+    "description": "Interventions des pompiers de Montréal (2015-Aujourd'hui)",
+    "url": "https://donnees.montreal.ca/ville-de-montreal/interventions-service-securite-incendie-montreal",
+    "directory": "resources/data/raw/interventions_sim/",
+    "working_db_format": "shp",
+    "remote": {
+        "shp": "https://data.montreal.ca/dataset/2fc8a2b9-1556-410e-a118-c46e97e9f19e/resource/c08b5a11-549f-409d-9d2a-04eb3a10b66a/download/interventions-sim.zip",
+        "geojson": "https://data.montreal.ca/dataset/2fc8a2b9-1556-410e-a118-c46e97e9f19e/resource/c42ff083-3002-4abe-aee3-951d17586dac/download/interventions-sim.json",
+        "csv": "https://data.montreal.ca/dataset/2fc8a2b9-1556-410e-a118-c46e97e9f19e/resource/71e86320-e35c-4b4c-878a-e52124294355/download/donneesouvertes-interventions-sim.csv"
+    },
+    "not_relevant_columns": ["NOM_VILLE", "NOM_ARROND", "MTM8_X", "MTM8_Y", "LONGITUDE", "LATITUDE"],
+    "significant_columns": ["INCIDENT_NBR", "CREATION_DATE_TIME", "INCIDENT_TYPE_DESC", "DESCRIPTION_GROUPE", "CASERNE", "DIVISION", "NOMBRE_UNITES"]
+}

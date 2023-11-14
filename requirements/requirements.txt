@@ -6,3 +6,8 @@ turfpy
 geopandas
 haversine
 shapely
+seaborn
+statsmodels
+XGBoost
+imblearn
+scikit-plot

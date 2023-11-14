@@ -6,10 +6,10 @@ import json
 import geopandas as gpd
 import folium
 
-import data.fetch as get_df
+import data.old_code.fetch as get_df
 from scipy.spatial import cKDTree
 from utils.distances import calculate_distance_vector
-from data.spatial import create_grid
+from data.old_code.clean import create_grid
 import utils.constants as coord
 import utils.columns as dt_cols
 
@@ -44,10 +44,7 @@ def create_fire_stations_graph_backup(dt_cols=None, test: bool = True):
 
     # open a new map
     m = folium.Map(
-        location=[
-            coord.mtl[dt_cols.LAT_COL],
-            coord.mtl[dt_cols.LONG_COL],
-        ],
+        location=[coord.mtl[dt_cols.LAT_COL], coord.mtl[dt_cols.LONG_COL]],
         zoom_start=11,
         tiles="Stamen Toner",
     )
@@ -132,7 +129,9 @@ def create_fire_incidents_yearly():
     )
 
     # read montreal lim_admin_mtl info
-    mtl_geo = gpd.read_file("src/data/lim_admin_mtl/limites-administratives-agglomeration.shp")
+    mtl_geo = gpd.read_file(
+        "src/data/lim_admin_mtl/limites-administratives-agglomeration.shp"
+    )
 
     # create grid
     grid = create_grid(mtl_geo, 0.005)
@@ -152,10 +151,7 @@ def create_fire_incidents_yearly():
 
     # open a new map
     mtl_map = folium.Map(
-        location=[
-            coord.mtl[dt_cols.LAT_COL],
-            coord.mtl[dt_cols.LONG_COL],
-        ],
+        location=[coord.mtl[dt_cols.LAT_COL], coord.mtl[dt_cols.LONG_COL]],
         zoom_start=11,
         # tiles=None,
         tiles="Stamen Toner",
@@ -237,10 +233,7 @@ def create_fire_incidents_yearly():
     print("Done!!!")
 
 
-def get_nearest_borne(
-    gd_a,
-    gd_b,
-):
+def get_nearest_borne(gd_a, gd_b):
     # transform to array
     n_a = np.array(list(gd_a.geometry.apply(lambda x: (x.x, x.y))))
     n_b = np.array(list(gd_b.geometry.apply(lambda x: (x.x, x.y))))
@@ -270,8 +263,9 @@ def get_nearest_borne(
 
     return gdf
 
+
 def geo_test():
-    # this merges multiple datasets into fire database
+    # this merges multiple prep into fire database
 
     # read incidents dataset
     inc_mtl = get_df.fire_incidents()
@@ -303,14 +297,18 @@ def geo_test():
     )
 
     # read montreal boroughs
-    mtl = gpd.read_file("src/data/lim_admin_mtl/limites-administratives-agglomeration.shp")
+    mtl = gpd.read_file(
+        "src/data/lim_admin_mtl/limites-administratives-agglomeration.shp"
+    )
 
     # Make sure they're using the same projection reference
     # gdf.crs = mtl.crs
     # join_left_df = gdf.sjoin(mtl, how='left')
     # bornes = geopandas.read_file("src/data/borne_incendie/AQU_BORNEINCENDIE_P_J_point.shp", crs={'init': 'epsg:4326'})
 
-    with open("src/data/borne_incendie/ati_geomatique.aqu_borneincendie_p_j.json", "r") as j:
+    with open(
+        "src/data/borne_incendie/ati_geomatique.aqu_borneincendie_p_j.json", "r"
+    ) as j:
         json_content = json.loads(j.read())
 
     gdf_b = gpd.GeoDataFrame.from_features(json_content["features"])

@@ -1,0 +1,12 @@
+{
+    "name":"Census2021_BoundaryFiles",
+    "description": "Digital boundary files that portray the full extent of the geographic areas, including the coastal water area.",
+    "url":"https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/index2021-eng.cfm?year=21",
+    "directory":"resources/data/raw/census/",
+    "working_db_format": "shp",
+    "remote":{
+        "shp":"https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip",
+        "geojson":null,
+        "csv":null
+    }
+}
